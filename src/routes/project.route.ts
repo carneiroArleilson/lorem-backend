@@ -16,29 +16,29 @@ projectRoute.get('/', async (request, response) => {
     const projects = await projectRepository.find({ take, skip });
 
     return response.json(projects);
-  } catch (error) {
-    return response.status(400).json({ message: error });
+  } catch (err) {
+    return response.status(400).json({ message: err.message });
   }
 });
 
 projectRoute.post('/', async (request, response) => {
   try {
-    const { name, dt_begin, dt_end, price, risc } = request.body;
+    const { name, dt_begin, dt_end, price, risc, users } = request.body;
     const project: Project = {
       name,
       dt_begin: new Date(dt_begin),
       dt_end: new Date(dt_end),
       price: Number(price),
       risc: Number(risc),
+      users
     };
 
     const createProject = new CreateProjectService();
     const savedProject = await createProject.execute(project);
 
     return response.json(savedProject);
-  } catch (error) {
-    console.log(error);
-    return response.status(400).json({ message: error });
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
   }
 });
 
