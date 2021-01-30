@@ -65,6 +65,21 @@ projectRoute.put('/:id_project', async (request, response) => {
   }
 });
 
-projectRoute.delete('/:id_project', (request, response) => {});
+projectRoute.delete('/:id_project', async (request, response) => {
+  try {
+    const { id_project } = request.params;
+    const projectRepository = getRepository(ProjectORM);
+
+    const project = await projectRepository.findOne({ id: Number(id_project)});
+
+    if(!project) throw new Error('Project don´t exists!');
+
+    await projectRepository.delete({ id: project.id });
+
+    return response.status(204).send('Product Deleted!');
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
 
 export default projectRoute;
