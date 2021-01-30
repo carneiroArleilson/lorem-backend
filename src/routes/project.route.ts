@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 import { ProjectORM } from '../entities/project.entity';
 import { Project } from '../interface/project.interface';
 import { CreateProjectService } from '../services/CreateProjectService';
+import { UpdateProjectService } from '../services/UpdateProjectService';
 
 const projectRoute = Router();
 
@@ -42,7 +43,27 @@ projectRoute.post('/', async (request, response) => {
   }
 });
 
-projectRoute.put('/:id_project', (request, response) => {});
+projectRoute.put('/:id_project', async (request, response) => {
+  try {
+    const { id_project } = request.params;
+    const { name, dt_begin, dt_end, price, risc, users } = request.body;
+    const project: Project = {
+      name,
+      dt_begin: new Date(dt_begin),
+      dt_end: new Date(dt_end),
+      price: Number(price),
+      risc: Number(risc),
+      users
+    };
+
+    const updateProject = new UpdateProjectService();
+    const savedProject = await updateProject.execute(Number(id_project), project);
+
+    return response.json(savedProject);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
 
 projectRoute.delete('/:id_project', (request, response) => {});
 
