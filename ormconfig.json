@@ -1,24 +1,21 @@
 {
-   "type": "mysql",
-   "host": "localhost",
-   "port": 3306,
-   "username": "root",
-   "password": "",
-   "database": "lorem",
-   "synchronize": true,
-   "logging": false,
-   "entities": [
-      "src/entities/**/*.ts"
-   ],
-   "migrations": [
-      "src/migration/**/*.ts"
-   ],
-   "subscribers": [
-      "src/subscriber/**/*.ts"
-   ],
-   "cli": {
-      "entitiesDir": "src/entities",
-      "migrationsDir": "src/migration",
-      "subscribersDir": "src/subscriber"
-   }
+  "type": "postgres",
+  "host": "ec2-54-211-55-24.compute-1.amazonaws.com",
+  "port": 5432,
+  "username": "hgqxrodhvmhgma",
+  "password": "54d8dde4f9c80548652c5dea288ba2c22af9d645e367c5a765e03d1d24fbcaf2",
+  "database": "d7d4drhhc6jmol",
+  "ssl": {
+    "rejectUnauthorized": false
+  },
+  "synchronize": true,
+  "logging": false,
+  "entities": ["src/entities/**/*.ts"],
+  "migrations": ["src/migration/**/*.ts"],
+  "subscribers": ["src/subscriber/**/*.ts"],
+  "cli": {
+    "entitiesDir": "src/entities",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+  }
 }
