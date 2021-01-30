@@ -15,7 +15,7 @@ userRoute.get('/', async (request, response) => {
 
     const users = await userRepository.find({
       where: {
-        name: Raw(alias => (name ? `alias ILIKE '%${name}%'` : 'true')),
+        name: Raw(alias => (name ? `${alias} LIKE '%${name}%'` : 'true')),
       },
       take,
       skip,
