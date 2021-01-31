@@ -1,7 +1,27 @@
-# Awesome Project Build with TypeORM
+# Lorem Backend
 
-Steps to run this project:
+NPM v6.14.10
+YARN v7.12.11
+Node v14.15.4
 
-1. Run `npm i` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` command
+## Instalação
+
+Para instalar as dependências do projeto:
+
+```bash
+  npm install ou yarn
+```
+
+## Exemplo de uso
+
+Para executar a aplicação:
+
+```bash
+  npm run start:dev ou yarn start:dev
+```
+
+## Configuração para Desenvolvimento
+
+Para mudar as configurações do banco, acessar o arquivo ormconfig.json
+
+
