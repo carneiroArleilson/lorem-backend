@@ -14,7 +14,11 @@ projectRoute.get('/', async (request, response) => {
 
     const projectRepository = getRepository(ProjectORM);
 
-    const projects = await projectRepository.find({ take, skip });
+    const projects = await projectRepository.find({
+      relations: ['participants', 'participants.user'],
+      take,
+      skip,
+    });
 
     return response.json(projects);
   } catch (err) {
@@ -31,7 +35,7 @@ projectRoute.post('/', async (request, response) => {
       dt_end: new Date(dt_end),
       price: Number(price),
       risc: Number(risc),
-      users
+      users,
     };
 
     const createProject = new CreateProjectService();
@@ -53,11 +57,14 @@ projectRoute.put('/:id_project', async (request, response) => {
       dt_end: new Date(dt_end),
       price: Number(price),
       risc: Number(risc),
-      users
+      users,
     };
 
     const updateProject = new UpdateProjectService();
-    const savedProject = await updateProject.execute(Number(id_project), project);
+    const savedProject = await updateProject.execute(
+      Number(id_project),
+      project,
+    );
 
     return response.json(savedProject);
   } catch (err) {
@@ -70,9 +77,9 @@ projectRoute.delete('/:id_project', async (request, response) => {
     const { id_project } = request.params;
     const projectRepository = getRepository(ProjectORM);
 
-    const project = await projectRepository.findOne({ id: Number(id_project)});
+    const project = await projectRepository.findOne({ id: Number(id_project) });
 
-    if(!project) throw new Error('Project don´t exists!');
+    if (!project) throw new Error('Project don´t exists!');
 
     await projectRepository.delete({ id: project.id });
 
