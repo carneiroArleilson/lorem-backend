@@ -24,7 +24,7 @@ export class UpdateProjectService {
         const participant = await participantRepository.findOne({
           where: {
             id_project: savedProject.id,
-            id_user: user
+            id_user: Number(user)
           }
         });
 
@@ -32,7 +32,7 @@ export class UpdateProjectService {
 
         return await participantRepository.save({
           id_project: savedProject.id,
-          id_user: user
+          id_user: Number(user)
         });
       }));
     }
