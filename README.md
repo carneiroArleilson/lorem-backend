@@ -1,8 +1,8 @@
 # Lorem Backend
 
-NPM v6.14.10
-YARN v7.12.11
-Node v14.15.4
+* NPM v6.14.10
+* YARN v7.12.11
+* Node v14.15.4
 
 ## Instalação
 
