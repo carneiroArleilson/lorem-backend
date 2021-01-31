@@ -25,7 +25,7 @@ export class CreateProjectService {
       const userRepository = getRepository(UserORM);
 
       await Promise.all(project.users.map(async user => {
-        const isUser = await userRepository.findOne({ id: user });
+        const isUser = await userRepository.findOne({ id: Number(user) });
 
         if(!isUser) throw new Error('User don´t exists!');
 

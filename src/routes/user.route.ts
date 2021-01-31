@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { CreateDateColumn, getRepository, Raw } from 'typeorm';
+import { getRepository, Raw } from 'typeorm';
 import { UserORM } from '../entities/user.entity';
 import { CreateUserService } from '../services/CreateUserService';
 
