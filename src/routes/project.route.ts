@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
+import { ParticipantsORM } from '../entities/participants.entity';
 import { ProjectORM } from '../entities/project.entity';
 import { Project } from '../interface/project.interface';
 import { CreateProjectService } from '../services/CreateProjectService';
@@ -14,13 +15,18 @@ projectRoute.get('/', async (request, response) => {
 
     const projectRepository = getRepository(ProjectORM);
 
-    const projects = await projectRepository.find({
+    const projects = await projectRepository.findAndCount({
       relations: ['participants', 'participants.user'],
       take,
       skip,
     });
 
-    return response.json(projects);
+    return response.json({
+      data: projects[0],
+      total: projects[1],
+      take,
+      skip
+    });
   } catch (err) {
     return response.status(400).json({ message: err.message });
   }
@@ -81,6 +87,9 @@ projectRoute.delete('/:id_project', async (request, response) => {
 
     if (!project) throw new Error('Project don´t exists!');
 
+    const participantsRepository = getRepository(ParticipantsORM);
+
+    await participantsRepository.delete({ id_project: project.id });
     await projectRepository.delete({ id: project.id });
 
     return response.status(204).send('Product Deleted!');
