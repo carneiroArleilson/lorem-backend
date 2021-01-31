@@ -32,6 +32,25 @@ projectRoute.get('/', async (request, response) => {
   }
 });
 
+projectRoute.get('/:id_project', async (request, response) => {
+  try {
+    const { id_project } = request.params;
+
+    const projectRepository = getRepository(ProjectORM);
+
+    const project = await projectRepository.findOne({
+      relations: ['participants', 'participants.user'],
+      where: {
+        id: Number(id_project)
+      }
+    });
+
+    return response.json(project);
+  } catch (err) {
+    return response.status(400).json({ message: err.message });
+  }
+});
+
 projectRoute.post('/', async (request, response) => {
   try {
     const { name, dt_begin, dt_end, price, risc, users } = request.body;
